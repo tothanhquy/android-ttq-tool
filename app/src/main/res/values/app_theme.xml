@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+<!--		&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--&lt;!&ndash;		<item name="colorPrimary">@color/orange</item>&ndash;&gt;-->
+<!--&lt;!&ndash;		<item name="colorPrimaryDark">@android:color/holo_orange_dark</item>&ndash;&gt;-->
+<!--		<item name="android:windowNoTitle">true</item>-->
+<!--		<item name="android:windowFullscreen">true</item>-->
+<!--		<item name="windowActionBar">false</item>-->
+<!--		<item name="background">@drawable/background3</item>-->
+<!--	</style>-->
+<!--	<style name="AppTheme.night">-->
+<!--		<item name="background">@drawable/background_original_night</item>-->
+<!--	</style>-->
+<!--	<style name="AppTheme.afternoon">-->
+<!--		<item name="background">@drawable/background_original_afternoon</item>-->
+<!--	</style>-->
+<!--	<style name="AppTheme.morning">-->
+<!--		<item name="background">@drawable/background_original_morning</item>-->
+<!--	</style>-->
+<!--	-->
+</resources>
