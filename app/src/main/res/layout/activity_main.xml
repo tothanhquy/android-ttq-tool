@@ -4,6 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:theme="@style/AppTheme"
 	tools:context=".MainActivity">
 	
 	<ImageView
@@ -15,4 +16,130 @@
 		android:scaleType="centerCrop"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
+	
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginStart="15dp"
+		android:layout_marginTop="15dp"
+		android:layout_marginEnd="15dp"
+		android:layout_marginBottom="15dp"
+		android:background="@android:color/transparent"
+		android:contentDescription="main menu content"
+		android:elevation="1dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/mainActivityImageViewBackground">
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+			<LinearLayout
+				android:id="@+id/mainScreenTitleTool"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="200dp"
+				android:background="@drawable/border_radius_shape_30dp"
+				android:gravity="center"
+				android:orientation="horizontal">
+				
+				<ImageView
+					android:id="@+id/imageView"
+					android:layout_width="32dp"
+					android:layout_height="32dp"
+					android:layout_margin="20dp"
+					app:srcCompat="@drawable/gear" />
+				
+				<TextView
+					android:id="@+id/textView"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginRight="20dp"
+					android:fontFamily="@font/robot"
+					android:text="Hello"
+					android:textColor="@color/background1"
+					android:textSize="32sp" />
+			</LinearLayout>
+			
+			<LinearLayout
+				android:id="@+id/mainScreenToolContainer"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="vertical">
+					
+					<LinearLayout
+						android:id="@+id/mainScreenMicroCard"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_marginTop="15dp"
+						android:background="@drawable/main_screen_voice_record_background"
+						android:orientation="vertical">
+						
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal">
+							
+							<Space
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1" />
+							
+							<ImageView
+								android:id="@+id/imageView2"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="10dp"
+								android:layout_marginBottom="10dp"
+								android:layout_weight="2"
+								android:adjustViewBounds="true"
+								android:scaleType="centerInside"
+								app:srcCompat="@drawable/voice_recorder" />
+							
+							<Space
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1" />
+						</LinearLayout>
+						
+						<TextView
+							android:id="@+id/textView2"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="10dp"
+							android:layout_marginBottom="10dp"
+							android:contentDescription="ghi am"
+							android:fontFamily="@font/robot"
+							android:gravity="center"
+							android:text="@string/ghi_am_tool"
+							android:textSize="32sp" />
+					
+					</LinearLayout>
+				</LinearLayout>
+				
+				<Space
+					android:layout_width="15dp"
+					android:layout_height="match_parent" />
+				
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="vertical">
+				
+				</LinearLayout>
+			
+			</LinearLayout>
+		
+		</LinearLayout>
+	</ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
