@@ -1,5 +1,8 @@
 <resources>
-	<dimen name="app_bar_height">180dp</dimen>
-	<dimen name="fab_margin">16dp</dimen>
-	<dimen name="text_margin">16dp</dimen>
+	<dimen name="main_screen_title_font_size">32sp</dimen>
+	<dimen name="main_screen_title_icon_width">32dp</dimen>
+	<dimen name="main_screen_card_font_size">24sp</dimen>
+	<dimen name="main_screen_space_size">15dp</dimen>
+	
+
 </resources>

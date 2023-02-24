@@ -1,11 +1,21 @@
 package com.example.android_ttq_tool
 
-import android.app.Activity
+import android.app.Dialog
+import android.content.Context
+import android.content.DialogInterface
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.GradientDrawable
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import java.sql.Types.NULL
+import java.text.SimpleDateFormat
 import java.util.*
+
 
 class Genaral {
 	companion object Static{
@@ -31,6 +41,80 @@ class Genaral {
 	
 		fun hideTitle(activity: AppCompatActivity){
 			activity.supportActionBar?.hide()
+		}
+	
+		fun createBackgroundShapeRectangle(bgColor:Int, borderRadius:Float, borderWidth:Int, borderColor:Int):GradientDrawable{
+			val shape = GradientDrawable()
+			shape.shape = GradientDrawable.RECTANGLE
+			shape.cornerRadii = FloatArray(8){borderRadius}
+			shape.setColor(bgColor)
+			shape.setStroke(borderWidth , borderColor)
+			return shape
+		}
+		fun convertDpToPx( context: Context,dp:Float):Float{
+			return context.resources.displayMetrics.density*dp
+		}
+		
+		fun setupActivityTitleBar(activity: AppCompatActivity){
+		
+		}
+		
+		fun setTitleBarAndNavigationBar(activity: AppCompatActivity, backgroundScreenColor:Int, titleString:Int){
+//			set title bar
+			activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+			activity.supportActionBar?.setTitle(titleString)
+//		          set background color title
+			val backgroundTitleColor:Int = Color.argb((Color.alpha(backgroundScreenColor)*0.7).toInt(),
+				Color.red(backgroundScreenColor),
+				Color.green(backgroundScreenColor),
+				Color.blue(backgroundScreenColor))
+			activity.supportActionBar?.setBackgroundDrawable(ColorDrawable(backgroundTitleColor))
+//		          set window navigation bar color
+			activity.window.navigationBarColor = backgroundTitleColor
+		}
+		
+		fun getTimeStringNow():String{
+			val sdf =	SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+			return sdf.format(Date()).replace(' ','_')
+		}
+		
+		fun showError(context:Context,title:String,content:String){
+			var builder:AlertDialog.Builder = AlertDialog.Builder(context)
+			builder
+				.setTitle(title)
+				.setMessage(content)
+				.setIcon(R.drawable.warning_icon)
+				.setPositiveButton(android.R.string.ok,null)
+			var dialog:AlertDialog = builder.create()
+			dialog.show()
+			
+		}
+		fun getMillisecondNow():Long{
+			return System.currentTimeMillis()
+		}
+		fun convertMillisecondToTimeString(millisecond:Long):String{
+//			println(millisecond)
+			var res = ""
+			val zero:Long = 0
+			var milli:Long = millisecond
+			
+			if(milli/(1000*60*60)!==zero){
+				//hour
+				res+=""+(milli/(1000*60*60))+":"
+				milli%=(1000*60*60)
+			}
+			//minus
+			val minus = (milli/(1000*60))
+			res+=""+(if (minus<10) "0"+minus else minus)
+			milli%=(1000*60)
+			//sec
+			val sec = (milli/(1000))
+			res+=":"+(if (sec<10) "0"+sec else sec)
+			milli%=1000
+			//millisec
+//			milli/=100
+//			res+="."+milli
+			return res
 		}
 	}
 	

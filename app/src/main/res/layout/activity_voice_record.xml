@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ui.voice_record.VoiceRecordActivity">
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/background3"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+		
+		<ScrollView
+			android:id="@+id/voiceRecordListScreen"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginBottom="100dp"
+			android:contentDescription="list view"
+			android:elevation="1dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="start"
+				android:orientation="vertical">
+				
+				<!--				<LinearLayout-->
+				<!--					android:layout_width="match_parent"-->
+				<!--					android:layout_height="wrap_content"-->
+				<!--					android:layout_marginLeft="10dp"-->
+				<!--					android:layout_marginTop="10dp"-->
+				<!--					android:layout_marginRight="10dp"-->
+				<!--					android:background="@drawable/border_radius_shape_30dp"-->
+				<!--					android:clickable="true"-->
+				<!--					android:gravity="center"-->
+				<!--					android:orientation="horizontal"-->
+				<!--					android:padding="10dp">-->
+				<!--					-->
+				<!--					<ImageView-->
+				<!--						android:id="@+id/imageView6"-->
+				<!--						android:layout_width="32dp"-->
+				<!--						android:layout_height="wrap_content"-->
+				<!--						android:layout_marginStart="4dp"-->
+				<!--						android:layout_marginEnd="4dp"-->
+				<!--						android:adjustViewBounds="true"-->
+				<!--						app:srcCompat="@drawable/voice_recorder" />-->
+				<!--					-->
+				<!--					<TextView-->
+				<!--						android:id="@+id/textView5"-->
+				<!--						android:layout_width="wrap_content"-->
+				<!--						android:layout_height="wrap_content"-->
+				<!--						android:layout_weight="1"-->
+				<!--						android:fontFamily="@font/robot"-->
+				<!--						android:text="TextView"-->
+				<!--						android:textSize="24sp" />-->
+				<!--				</LinearLayout>-->
+			</LinearLayout>
+		</ScrollView>
+		
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/voiceRecordCreateScreen"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="100dp"
+			android:layout_weight="1"
+			android:elevation="1dp"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+			
+			<TextView
+				android:id="@+id/voiceRecordCreateScreenTime"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:alpha="0"
+				android:fontFamily="@font/robot"
+				android:paddingBottom="20dp"
+				android:text="02:14"
+				android:textSize="64sp"
+				app:layout_constraintBottom_toTopOf="@id/voiceRecordCreateScreenStop"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0.5" />
+			
+			<LinearLayout
+				android:id="@+id/voiceRecordCreateScreenStart"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:alpha="0"
+				android:clickable="true"
+				android:gravity="center"
+				android:onClick="changeCreateScreenStatus"
+				android:orientation="vertical"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent">
+				
+				<ImageView
+					android:id="@+id/imageViewPlay"
+					android:layout_width="128dp"
+					android:layout_height="wrap_content"
+					android:adjustViewBounds="true"
+					app:srcCompat="@drawable/voice_record_create_screen_icon_play" />
+				
+				<TextView
+					android:id="@+id/textViewPlay"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:fontFamily="@font/robot"
+					android:text="Start"
+					android:textSize="24sp"
+					android:textStyle="bold" />
+			</LinearLayout>
+			
+			<LinearLayout
+				android:id="@+id/voiceRecordCreateScreenPause"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:alpha="0"
+				android:clickable="true"
+				android:gravity="center"
+				android:onClick="changeCreateScreenStatus"
+				android:orientation="vertical"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@+id/voiceRecordCreateScreenStop"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/voiceRecordCreateScreenTime">
+				
+				<ImageView
+					android:id="@+id/imageViewPause"
+					android:layout_width="64dp"
+					android:layout_height="wrap_content"
+					android:adjustViewBounds="true"
+					app:srcCompat="@drawable/voice_record_create_screen_icon_pause" />
+				
+				<TextView
+					android:id="@+id/textViewPause"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:fontFamily="@font/robot"
+					android:text="Pause"
+					android:textSize="24sp"
+					android:textStyle="bold" />
+			</LinearLayout>
+			
+			<LinearLayout
+				android:id="@+id/voiceRecordCreateScreenContinue"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:alpha="0"
+				android:clickable="true"
+				android:gravity="center"
+				android:onClick="changeCreateScreenStatus"
+				android:orientation="vertical"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@+id/voiceRecordCreateScreenStop"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/voiceRecordCreateScreenTime">
+				
+				<ImageView
+					android:id="@+id/imageViewContinue"
+					android:layout_width="64dp"
+					android:layout_height="wrap_content"
+					android:adjustViewBounds="true"
+					app:srcCompat="@drawable/voice_record_create_screen_icon_next" />
+				
+				<TextView
+					android:id="@+id/textViewContinue"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:fontFamily="@font/robot"
+					android:text="Continue"
+					android:textSize="24sp"
+					android:textStyle="bold" />
+			</LinearLayout>
+			
+			<LinearLayout
+				android:id="@+id/voiceRecordCreateScreenStop"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:alpha="0"
+				android:clickable="true"
+				android:gravity="center"
+				android:onClick="changeCreateScreenStatus"
+				android:orientation="vertical"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toEndOf="@id/voiceRecordCreateScreenContinue"
+				app:layout_constraintTop_toBottomOf="@+id/voiceRecordCreateScreenTime">
+				
+				<ImageView
+					android:id="@+id/imageViewStop"
+					android:layout_width="64dp"
+					android:layout_height="wrap_content"
+					android:adjustViewBounds="true"
+					app:srcCompat="@drawable/voice_record_create_screen_icon_stop" />
+				
+				<TextView
+					android:id="@+id/textViewStop"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:fontFamily="@font/robot"
+					android:text="Stop"
+					android:textSize="24sp"
+					android:textStyle="bold" />
+			</LinearLayout>
+		</androidx.constraintlayout.widget.ConstraintLayout>
+		
+		<LinearLayout
+			android:id="@+id/voiceRecordNavBarContainer"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:elevation="5dp"
+			android:gravity="bottom"
+			android:orientation="horizontal"
+			android:paddingTop="10dp"
+			android:paddingBottom="10dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent">
+			
+			<Space
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+			
+			<ImageView
+				android:id="@+id/voiceRecordNavbarItemMic"
+				android:layout_width="64dp"
+				android:layout_height="wrap_content"
+				android:adjustViewBounds="true"
+				android:clickable="true"
+				android:contentDescription="mic"
+				android:onClick="changeNavbarItem"
+				android:scaleType="fitCenter"
+				app:srcCompat="@drawable/voice_record_navbar_icon_micro" />
+			
+			<Space
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+			
+			<ImageView
+				android:id="@+id/voiceRecordNavbarItemStore"
+				android:layout_width="64dp"
+				android:layout_height="wrap_content"
+				android:adjustViewBounds="true"
+				android:clickable="true"
+				android:contentDescription="store"
+				android:onClick="changeNavbarItem"
+				android:scaleType="fitCenter"
+				app:srcCompat="@drawable/voice_record_navbar_icon_database" />
+			
+			<Space
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+		
+		</LinearLayout>
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

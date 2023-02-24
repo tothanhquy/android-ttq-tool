@@ -5,7 +5,8 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:theme="@style/AppTheme"
-	tools:context=".MainActivity">
+	tools:viewBindingIgnore="true"
+	tools:context=".ui.home.MainActivity">
 	
 	<ImageView
 		android:id="@+id/mainActivityImageViewBackground"
@@ -20,10 +21,10 @@
 	<ScrollView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginStart="15dp"
-		android:layout_marginTop="15dp"
-		android:layout_marginEnd="15dp"
-		android:layout_marginBottom="15dp"
+		android:layout_marginStart="@dimen/main_screen_space_size"
+		android:layout_marginTop="@dimen/main_screen_space_size"
+		android:layout_marginEnd="@dimen/main_screen_space_size"
+		android:layout_marginBottom="@dimen/main_screen_space_size"
 		android:background="@android:color/transparent"
 		android:contentDescription="main menu content"
 		android:elevation="1dp"
@@ -48,8 +49,8 @@
 				
 				<ImageView
 					android:id="@+id/imageView"
-					android:layout_width="32dp"
-					android:layout_height="32dp"
+					android:layout_width="@dimen/main_screen_title_icon_width"
+					android:layout_height="@dimen/main_screen_title_icon_width"
 					android:layout_margin="20dp"
 					app:srcCompat="@drawable/gear" />
 				
@@ -60,8 +61,7 @@
 					android:layout_marginRight="20dp"
 					android:fontFamily="@font/robot"
 					android:text="Hello"
-					android:textColor="@color/background1"
-					android:textSize="32sp" />
+					android:textSize="@dimen/main_screen_title_font_size" />
 			</LinearLayout>
 			
 			<LinearLayout
@@ -81,8 +81,10 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_marginTop="15dp"
-						android:background="@drawable/main_screen_voice_record_background"
-						android:orientation="vertical">
+						android:clickable="true"
+						android:onClick="voiceRecordCardClick"
+						android:orientation="vertical"
+						android:padding="10dp">
 						
 						<LinearLayout
 							android:layout_width="match_parent"
@@ -121,13 +123,13 @@
 							android:fontFamily="@font/robot"
 							android:gravity="center"
 							android:text="@string/ghi_am_tool"
-							android:textSize="32sp" />
+							android:textSize="@dimen/main_screen_card_font_size" />
 					
 					</LinearLayout>
 				</LinearLayout>
 				
 				<Space
-					android:layout_width="15dp"
+					android:layout_width="@dimen/main_screen_space_size"
 					android:layout_height="match_parent" />
 				
 				<LinearLayout
