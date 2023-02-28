@@ -3,13 +3,17 @@ package com.example.android_ttq_tool
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.DialogInterface.OnClickListener
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.sql.Types.NULL
@@ -73,6 +77,13 @@ class Genaral {
 			activity.window.navigationBarColor = backgroundTitleColor
 		}
 		
+		fun createBackgroundOpacity(color:Int, alpha:Float):Int{
+			return Color.argb((Color.alpha(color)*alpha).toInt(),
+				Color.red(color),
+				Color.green(color),
+				Color.blue(color))
+		}
+		
 		fun getTimeStringNow():String{
 			val sdf =	SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 			return sdf.format(Date()).replace(' ','_')
@@ -88,6 +99,28 @@ class Genaral {
 			var dialog:AlertDialog = builder.create()
 			dialog.show()
 			
+		}
+		fun showNotificationDialog(context:Context,title:String,content:String){
+			var builder:AlertDialog.Builder = AlertDialog.Builder(context)
+			builder
+				.setTitle(title)
+				.setMessage(content)
+				.setIcon(R.drawable.notification_icon)
+				.setPositiveButton(android.R.string.ok,null)
+			var dialog:AlertDialog = builder.create()
+			dialog.show()
+		}
+		fun showAskDialog(context:Context,title:String,content:String, listener: OnClickListener){
+			var builder:AlertDialog.Builder = AlertDialog.Builder(context)
+			builder
+				.setTitle(title)
+				.setMessage(content)
+				.setIcon(R.drawable.question_icon)
+				.setPositiveButton(android.R.string.yes,listener)
+				.setOnCancelListener(null)
+				.setNegativeButton(android.R.string.no, null)
+			var dialog:AlertDialog = builder.create()
+			dialog.show()
 		}
 		fun getMillisecondNow():Long{
 			return System.currentTimeMillis()
@@ -115,6 +148,46 @@ class Genaral {
 //			milli/=100
 //			res+="."+milli
 			return res
+		}
+		
+		fun createGetStringDialog(
+			context:Context,title:String,
+			defaultInput:String,
+			funcHandel:(input:String?)->Boolean,//return true then dismiss
+		):Dialog{
+			var dialog = Dialog(context,android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+			
+			dialog.setContentView(R.layout.get_string_dialog)
+			dialog.findViewById<TextView>(R.id.get_string_dialog_title).text = title
+			dialog.findViewById<EditText>(R.id.get_string_dialog_input).setText(defaultInput)
+			dialog.findViewById<Button>(R.id.get_string_dialog_bt_default).setOnClickListener {
+				if(funcHandel(null))
+					dialog.dismiss()
+			}
+			dialog.findViewById<Button>(R.id.get_string_dialog_bt_ok).setOnClickListener {
+				if(funcHandel(dialog.findViewById<EditText>(R.id.get_string_dialog_input).text.toString()))
+					dialog.dismiss()
+			}
+			return dialog
+		}
+		
+		fun vibrate(context:Context){
+			try {
+				val vibrator =
+					context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+				if (Build.VERSION.SDK_INT >= 26) {
+					vibrator.vibrate(
+						VibrationEffect.createOneShot(
+							300 ,
+							VibrationEffect.DEFAULT_AMPLITUDE
+						)
+					)
+				} else {
+					vibrator.vibrate(300)
+				}
+			}catch (e:Exception){
+			
+			}
 		}
 	}
 	
