@@ -44,6 +44,7 @@ class VoiceRecordListenActivity : AppCompatActivity() {
 	private var currentPositionPlayer:Int = 0
 	private var recordTimeSize : Int = 0
 	private var timeRunning:TextView? = null
+	private var exitTimeThread:Boolean = true
 	
 	@SuppressLint("MissingInflatedId")
 	override fun onCreate(savedInstanceState : Bundle?) {
@@ -120,6 +121,7 @@ class VoiceRecordListenActivity : AppCompatActivity() {
 	}
 	override fun onDestroy() {
 		super.onDestroy()
+		exitTimeThread = true
 		//free memories
 		mediaPlayer?.release()
 	}
@@ -303,20 +305,26 @@ class VoiceRecordListenActivity : AppCompatActivity() {
 		}
 		mediaPlayer!!.seekTo(nextPos)
 	}
-	private fun threadTimeRunningLoopFunc(){
-		timeRunning!!.text =
-			Genaral.convertMillisecondToTimeString(mediaPlayer!!.currentPosition.toLong())
-		recordSeekBar!!.progress=mediaPlayer!!.currentPosition
+	private fun threadTimeRunningLoopFunc():Boolean{
+		try{
+			timeRunning!!.text =
+				Genaral.convertMillisecondToTimeString(mediaPlayer!!.currentPosition.toLong())
+			recordSeekBar!!.progress=mediaPlayer!!.currentPosition
+			return true
+		}catch (e:Exception){
+			return false
+		}
 	}
 	
 	private fun startThreadTime(){
+		exitTimeThread = false
 		threadTimeRunningLoopFunc()
 		Thread(Runnable {
-			while(true) {
+			while(!exitTimeThread) {
 				Thread.sleep(200)
 				//work with other thread
 				runOnUiThread(Runnable {
-					threadTimeRunningLoopFunc()
+					if(!threadTimeRunningLoopFunc())exitTimeThread=true
 				})
 			}
 		}).start()
