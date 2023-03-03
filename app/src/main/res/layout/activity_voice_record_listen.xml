@@ -2,14 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/voiceRecordActivity"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	tools:context=".ui.voice_record.VoiceRecordListenActivity">
 	
 	<ScrollView
-		android:layout_width="409dp"
-		android:layout_height="729dp"
+		android:id="@+id/voiceRecordMainScreen"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/background3"
 		android:contentDescription="scrool view"
+		android:elevation="1dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
@@ -21,34 +25,274 @@
 			android:gravity="center_horizontal"
 			android:orientation="vertical">
 			
+			<ImageView
+				android:id="@+id/voiceRecordListenMainImageView"
+				android:layout_width="200dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="100dp"
+				android:layout_marginBottom="30dp"
+				android:adjustViewBounds="true"
+				android:scaleType="fitCenter"
+				app:srcCompat="@drawable/vinyl_icon" />
+			
 			<TextView
-				android:id="@+id/textView3"
+				android:id="@+id/voiceRecordListenLabelName"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:fontFamily="@font/robot"
-				android:text="TextView time"
+				android:textAlignment="center"
 				android:textSize="24sp" />
+			
+			<TextView
+				android:id="@+id/voiceRecordListenLabelTime"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:fontFamily="@font/robot"
+				android:textAlignment="center"
+				android:textSize="20sp" />
 			
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:orientation="horizontal"></LinearLayout>
+				android:gravity="center"
+				android:orientation="horizontal"
+				android:padding="20dp"
+				android:paddingLeft="20dp"
+				android:paddingRight="20dp">
+				
+				<TextView
+					android:id="@+id/voiceRecordListenTimeRunning"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:fontFamily="@font/robot"
+					android:text="0:00" />
+				
+				<SeekBar
+					android:id="@+id/voiceRecordListenSeekBar"
+					style="@style/Widget.AppCompat.SeekBar"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp"
+					android:layout_weight="1"
+					android:max="10"
+					android:progress="1" />
+				
+				<TextView
+					android:id="@+id/voiceRecordListenTimeCount"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:fontFamily="@font/robot"
+					android:text="0:00" />
+			</LinearLayout>
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="30dp"
+				android:layout_marginBottom="30dp"
+				android:gravity="center"
+				android:orientation="horizontal">
+				
+				<Space
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="2" />
+				
+				<ImageView
+					android:id="@+id/voiceRecordListenPauseButton"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.5"
+					android:adjustViewBounds="true"
+					android:clickable="true"
+					android:contentDescription="pause"
+					android:onClick="pause"
+					app:srcCompat="@drawable/voice_record_create_screen_icon_pause" />
+				
+				<Space
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_weight="1" />
+				
+				<ImageView
+					android:id="@+id/voiceRecordListenPlayButton"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="2"
+					android:adjustViewBounds="true"
+					android:clickable="true"
+					android:contentDescription="start"
+					android:onClick="start"
+					app:srcCompat="@drawable/voice_record_create_screen_icon_play" />
+				
+				<Space
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_weight="1" />
+				
+				<ImageView
+					android:id="@+id/voiceRecordListenStopButton"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.5"
+					android:adjustViewBounds="true"
+					android:clickable="true"
+					android:contentDescription="stop"
+					android:onClick="stop"
+					app:srcCompat="@drawable/voice_record_create_screen_icon_stop" />
+				
+				<Space
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_weight="2" />
+			</LinearLayout>
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center">
+				
+				<Space
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1" />
+				
+				<ImageView
+					android:id="@+id/voiceRecordListenPreviousButton"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:adjustViewBounds="true"
+					android:clickable="true"
+					android:contentDescription="-10s"
+					android:onClick="nextPreviousButton"
+					app:srcCompat="@drawable/history_icon" />
+				
+				<Space
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="0.5" />
+				
+				<LinearLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:orientation="vertical">
+					
+					<TextView
+						android:id="@+id/textView4"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:fontFamily="@font/robot"
+						android:text="Sec"
+						android:textSize="20sp" />
+					
+					<Spinner
+						android:id="@+id/voiceRecordListenSpinnerSec"
+						style="@style/Widget.AppCompat.Spinner"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:clickable="true"
+						android:contentDescription="spinner"
+						android:dropDownWidth="wrap_content"
+						android:paddingTop="10dp"
+						android:paddingBottom="10dp"
+						android:spinnerMode="dialog"
+						android:textAlignment="textStart" />
+				</LinearLayout>
+				
+				<Space
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_weight="0.5"
+					android:clickable="false" />
+				
+				<LinearLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:orientation="vertical">
+					
+					<TextView
+						android:id="@+id/textView3"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:fontFamily="@font/robot"
+						android:text="Speed"
+						android:textSize="20sp" />
+					
+					<Spinner
+						android:id="@+id/voiceRecordListenSpinnerSpeed"
+						style="@style/Widget.AppCompat.Spinner"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:clickable="true"
+						android:contentDescription="spinner"
+						android:dropDownWidth="wrap_content"
+						android:paddingTop="10dp"
+						android:paddingBottom="10dp"
+						android:spinnerMode="dialog"
+						android:textAlignment="textStart" />
+				</LinearLayout>
+				
+				<Space
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_weight="0.5"
+					android:clickable="false" />
+				
+				<ImageView
+					android:id="@+id/voiceRecordListenNextButton"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:adjustViewBounds="true"
+					android:clickable="false"
+					android:contentDescription="+10s"
+					android:onClick="nextPreviousButton"
+					android:rotationY="180"
+					app:srcCompat="@drawable/history_icon" />
+				
+				<Space
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1" />
+			</LinearLayout>
 			
 			<TextView
-				android:id="@+id/textView6"
+				android:id="@+id/voiceRecordListenFileSize"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:fontFamily="@font/robot"
+				android:layout_marginTop="200dp"
+				android:fontFamily="sans-serif-black"
 				android:text="TextView kb"
-				android:textSize="24sp" />
+				android:textAlignment="center"
+				android:textSize="20sp" />
 			
 			<TextView
-				android:id="@+id/textView7"
+				android:id="@+id/voiceRecordListenFilePath"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:fontFamily="@font/robot"
+				android:fontFamily="sans-serif-black"
 				android:text="TextView path"
-				android:textSize="24sp" />
+				android:textAlignment="center"
+				android:textSize="16sp" />
+			
+			<Button
+				android:id="@+id/button"
+				style="@style/Widget.AppCompat.Button"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="50dp"
+				android:layout_marginBottom="200dp"
+				android:background="@drawable/red_background_border_radius_shape_10dp"
+				android:fontFamily="@font/robot"
+				android:onClick="deleteRecord"
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp"
+				android:text="Delete File"
+				android:textColor="@color/white" />
 		</LinearLayout>
 	</ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

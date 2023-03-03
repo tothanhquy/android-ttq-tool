@@ -2,7 +2,6 @@ package com.example.android_ttq_tool
 
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.DialogInterface.OnClickListener
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -10,13 +9,12 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.view.ViewGroup
-import android.view.Window
-import android.view.WindowManager
+import android.view.*
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import java.sql.Types.NULL
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -89,24 +87,24 @@ class Genaral {
 			return sdf.format(Date()).replace(' ','_')
 		}
 		
-		fun showError(context:Context,title:String,content:String){
+		fun showError(context:Context,title:String,content:String,listener : OnClickListener?=null){
 			var builder:AlertDialog.Builder = AlertDialog.Builder(context)
 			builder
 				.setTitle(title)
 				.setMessage(content)
 				.setIcon(R.drawable.warning_icon)
-				.setPositiveButton(android.R.string.ok,null)
+				.setPositiveButton(android.R.string.ok,listener)
 			var dialog:AlertDialog = builder.create()
 			dialog.show()
 			
 		}
-		fun showNotificationDialog(context:Context,title:String,content:String){
+		fun showNotificationDialog(context:Context,title:String,content:String,listener : OnClickListener?=null){
 			var builder:AlertDialog.Builder = AlertDialog.Builder(context)
 			builder
 				.setTitle(title)
 				.setMessage(content)
 				.setIcon(R.drawable.notification_icon)
-				.setPositiveButton(android.R.string.ok,null)
+				.setPositiveButton(android.R.string.ok,listener)
 			var dialog:AlertDialog = builder.create()
 			dialog.show()
 		}
@@ -188,6 +186,17 @@ class Genaral {
 			}catch (e:Exception){
 			
 			}
+		}
+		fun getLoadingScreen(context : Context,parent:ViewGroup,bg:Int):View{
+			var screen: View = LayoutInflater.from(context).inflate(R.layout.loading_layout, parent, false);
+			screen.setBackgroundColor(createBackgroundOpacity(bg,0.5f))
+			var img = screen.findViewById<ImageView>(R.id.loadingScreenImage)
+			val animation : Animation = AnimationUtils.loadAnimation(
+				context,
+				R.anim.rotate_animation_infinite
+			)
+			img.startAnimation(animation)
+			return screen
 		}
 	}
 	

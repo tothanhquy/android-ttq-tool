@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.os.Bundle
@@ -38,7 +39,7 @@ const val LAYOUT_CHANGE_ALPHA_HIDE:Float = 0f
 const val LAYOUT_CHANGE_SCALE_SHOW:Float = 1f
 const val LAYOUT_CHANGE_SCALE_HIDE:Float = 0.1f
 const val SAVE_FILE_NAME_DEFAULT:String = "VoiceRecording"
-
+const val ACTIVITY_REQUEST_CODE_VOICE_RECORD_LISTEN = 1
 class VoiceRecordActivity : AppCompatActivity() {
 	
 	
@@ -113,7 +114,16 @@ class VoiceRecordActivity : AppCompatActivity() {
 		
 		return super.onOptionsItemSelected(item);
 	}
-	
+	override fun onActivityResult(requestCode : Int , resultCode : Int , data : Intent?) {
+		super.onActivityResult(requestCode , resultCode , data)
+		
+		when (requestCode) {
+			ACTIVITY_REQUEST_CODE_VOICE_RECORD_LISTEN -> {
+				checkVoiceRecordListChangeAndHandle()
+			}
+			
+		}
+	}
 	private fun changeNavbarItemWithAnimation(view : View,isShow:Boolean=true){
 
 		val alphaDifference:Float
@@ -378,7 +388,7 @@ class VoiceRecordActivity : AppCompatActivity() {
 		if(oldFilePath.exists()===true){
 			path = path!!.replace(SAVE_FILE_NAME_DEFAULT,newName)
 			var newFilePath = File(path)
-			if(newFilePath.exists()===true){
+			if(newFilePath.exists()===true&&SAVE_FILE_NAME_DEFAULT!=newName){
 				Genaral.showError(this,"Error!","File' name is already exist.")
 			}else{
 				if(oldFilePath.renameTo(newFilePath)===true){
@@ -438,46 +448,12 @@ class VoiceRecordActivity : AppCompatActivity() {
 			}
 		}).start()
 	}
-//
-//	fun pausePlaying() {
-//		// this method will release the media player
-//		// class and pause the playing of our recorded audio.
-//		mPlayer.release()
-//		mPlayer = null
-//		stopTV.setBackgroundColor(resources.getColor(R.color.gray))
-//		startTV.setBackgroundColor(resources.getColor(R.color.purple_200))
-//		playTV.setBackgroundColor(resources.getColor(R.color.purple_200))
-//		stopplayTV.setBackgroundColor(resources.getColor(R.color.gray))
-//		statusTV.setText("Recording Play Stopped")
-//	}
-
-//	fun playAudio() {
-//		stopTV.setBackgroundColor(resources.getColor(R.color.gray))
-//		startTV.setBackgroundColor(resources.getColor(R.color.purple_200))
-//		playTV.setBackgroundColor(resources.getColor(R.color.gray))
-//		stopplayTV.setBackgroundColor(resources.getColor(R.color.purple_200))
-//
-//		// for playing our recorded audio
-//		// we are using media player class.
-//		mPlayer = MediaPlayer()
-//		try {
-//			// below method is used to set the
-//			// data source which will be our file name
-//			mPlayer.setDataSource(mFileName)
-//
-//			// below method will prepare our media player
-//			mPlayer.prepare()
-//
-//			// below method will start our media player.
-//			mPlayer.start()
-//			statusTV.setText("Recording Started Playing")
-//		} catch (e : IOException) {
-//			Log.e("TAG" , "prepare() failed")
-//		}
-//	}
-//
 	private fun openVoiceRecordListenActivity(fileName : String){
-	
+		val intent = Intent(this , VoiceRecordListenActivity::class.java)
+		intent.putExtra("FilePath" , pathDirectoryVoiceRecord+fileName)
+//		startActivity(intent)
+		startActivityForResult(intent, ACTIVITY_REQUEST_CODE_VOICE_RECORD_LISTEN);
+		
 	}
 	private fun getVoiceRecordListViewItem(context: Context,parent:ViewGroup,label:String):View{
 		var item:View = LayoutInflater.from(context).inflate(R.layout.activity_voice_record_list_item, parent, false);
@@ -655,6 +631,28 @@ class VoiceRecordActivity : AppCompatActivity() {
 				loadVoiceRecord()
 			 })
 			
+		}
+	}
+	private fun checkVoiceRecordListChangeAndHandle(){
+		val path:String = pathDirectoryVoiceRecord!!
+		var rightList = ArrayList<VoiceRecordListItem>()
+		File(path).walkBottomUp().forEach{
+			if(it.isFile)rightList!!.add(VoiceRecordListItem(it.name,false))
+		}
+		rightList!!.sortByDescending { it.label }
+		var checkSame = true
+		if(rightList.count()==voiceRecordList!!.count()){
+			checkSame=false
+		}else{
+			for(i in 0..rightList.count()){
+				if(rightList.get(i).label!=voiceRecordList!!.get(i).label){
+					checkSame = false
+					break
+				}
+			}
+		}
+		if(!checkSame){
+			loadVoiceRecord()
 		}
 	}
 }
